@@ -6,17 +6,10 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
   </header>
-
+  <!-- RouterView is where our route content gets rendered. 
+       So if the route is About, it will render anything that we tell the About route to render in the router/index.js file  
+  -->
   <RouterView />
 </template>
 

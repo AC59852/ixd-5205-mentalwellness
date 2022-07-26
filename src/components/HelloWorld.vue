@@ -13,7 +13,7 @@
     name: 'HelloWorld',
     data() {
       return {
-        msg: 'Hello Vite + Vue 3!'
+        msg: 'Welcome to Vue!'
       }
     }
   }
