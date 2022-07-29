@@ -1,5 +1,6 @@
 <template>
   <h1>Questions</h1>
+  <h2>{{activeQuestion}}</h2>
   <ul>
     <li v-for="response in questions[0].responses" :key="response.id">
       <input type="radio" name="question" :value="response.response" @click="logChoice($event)"/>
@@ -31,7 +32,13 @@ export default {
           ]
         },
       ],
+
+      activeQuestion: null
     }
+  },
+
+  mounted() {
+    this.activeQuestion = this.questions[0].question;
   },
 
   methods: {
@@ -41,8 +48,7 @@ export default {
 
     logChoice(event) {
       console.log(event.target.value);
-
-      //localStorage.setItem('choice1', event.target.value);
+      //localStorage.setItem('choice', event.target.value);
     }
   }
 }

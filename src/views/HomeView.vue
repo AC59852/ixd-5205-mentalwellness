@@ -130,22 +130,3 @@ import HelloWorld from '@/components/HelloWorld.vue';
   }
 </script>
 <!-- We can also use CSS that is scoped to just this page/component -->
-<style scoped>
-.fruits ul {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  list-style: none;
-}
-
-.fruits li button {
-  padding: 0.6rem 1rem;
-  font-size: 0.95rem;
-}
-
-.activeFruit {
-  text-align: center;
-  margin: 20px 0;
-  color: white;
-}
-</style>
