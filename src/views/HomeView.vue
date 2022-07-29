@@ -12,7 +12,7 @@
         <li v-for="fruit in fruits" :key="fruit">
           <!-- 
             @click is the same as addEventListener("click", setFruitColour())
-            passing $event as the arguement lets us access the event object
+            passing $event as the arguement lets us access the event object. In this case, the event object is the button, and everything along with it
           -->
           <button @click="toggleFruitColour($event)">{{ fruit.name }}</button>
         </li>
