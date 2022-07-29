@@ -52,6 +52,23 @@ import HelloWorld from '@/components/HelloWorld.vue';
           { id: 5, name: 'Grape', colour: 'purple' },
         ],
 
+        questions: [
+
+          {id: 1, question: 'What brings you here today?', responses: [
+            {id: 1, response: 'Reduce anxiety'},
+            {id: 2, response: 'Relieve Stress'},
+            {id: 3, response: 'I want to know more about your favourite colour'},
+          ]
+          },
+
+          {id: 1, question: 'How often do you get anxiety attacks?', responses: [
+            {id: 1, response: 'I want to know more about you'},
+            {id: 2, response: 'I want to know more about your favourite fruit'},
+            {id: 3, response: 'I want to know more about your favourite colour'},
+          ]},
+        ],
+        
+
         // activeFruit is the fruit that is currently active. We set it to null by default
         activeFruit: null,
       }
