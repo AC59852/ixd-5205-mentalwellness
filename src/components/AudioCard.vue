@@ -2,7 +2,7 @@
   <!-- div @click emit showAudioPlayer -->
   <div class="audio-card">
     <div class="audio-card__img">
-      <img :src="card.image" :alt="'Cover Photo for the Song: ' + card.title + ', By: ' + card.artist">
+      <img @click="player()" :src="card.coverPhoto" :alt="'Cover Photo for the Song: ' + card.title + ', By: ' + card.artist">
       <button class="audio-card__btn" >+</button>
     </div>
     <div class="audio-card__text">
@@ -16,6 +16,11 @@
 export default {
 props: ['card'],
 
+methods: {
+  player() {
+    this.$emit('showAudioPlayer', this.card)
+  }
+}
 }
 </script>
 

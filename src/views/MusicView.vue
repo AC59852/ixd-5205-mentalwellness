@@ -2,12 +2,16 @@
   <section class="music">
     <div v-for="genre in genreSongs" :key="genre.title">
       <h2>{{genre.title}}</h2>
+      <AudioCard @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
     </div>
+    <PlayerComponent v-if="selectedSong && selectedPlaylist" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
   </section>
 </template>
 
 <script>
-// import AudioCard from '@components/AudioCard.vue';
+import AudioCard from '@/components/AudioCard.vue';
+import PlayerComponent from '@/components/PlayerComponent.vue';
+
 export default {
   data() {
     return {
@@ -16,6 +20,8 @@ export default {
       genres: [],
       uniqueGenres: [],
       genreSongs: [],
+      selectedPlaylist: null,
+      selectedSong: null,
     }
   },
 
@@ -62,7 +68,32 @@ export default {
       })
       .catch(error => console.log(error));
   },
+
+  methods: {
+    loadPlayer(card) {
+      this.selectedSong = card;
+    },
+
+    setPlaylist(card) {
+      console.log(card.genre);
+      // capitalize card.type
+      let genre = card.genre.charAt(0).toUpperCase() + card.genre.slice(1);
+
+      // get all songs of the genre
+      let songs = this.songs.filter(song => song.genre === genre);
+
+      console.log(songs)
+
+      // set the playlist
+      this.selectedPlaylist = songs;
+    },
+  },
+
+  components: {
+    AudioCard: AudioCard,
+    PlayerComponent
   }
+}
 </script>
 
 <style>

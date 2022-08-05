@@ -1,5 +1,6 @@
 <template>
   <section class="player">
+      <span @click="close()">X</span>
       <div class="player__info">
         <img :src="currentSong.coverPhoto" :alt="`Cover Photo for the Song: ${currentSong.title}, By ${selectedSong.artist}`">
         <div class="info__text">
@@ -65,6 +66,10 @@ export default {
   },
 
   methods: {
+    close() {
+      this.$emit('close')
+    },
+
     toggleSong() {
       this.songPlaying = !this.songPlaying;
       // toggle the audio
@@ -97,93 +102,111 @@ export default {
     },
 
     shufflePlaylist() {
-      // shuffle the playlist where the current song is always the first song in the playlist
-      const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
+      if(this.currentPlaylist != null) {
+        // shuffle the playlist where the current song is always the first song in the playlist
+        const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
 
-      // create a new array with the current song at the beginning
-      const newPlaylist = [this.currentSong];
+        // create a new array with the current song at the beginning
+        const newPlaylist = [this.currentSong];
 
-      // shuffle the rest of the playlist
-      const shuffledPlaylist = this.currentPlaylist.slice(0, currentSongIndex).concat(this.currentPlaylist.slice(currentSongIndex + 1));
+        // shuffle the rest of the playlist
+        const shuffledPlaylist = this.currentPlaylist.slice(0, currentSongIndex).concat(this.currentPlaylist.slice(currentSongIndex + 1));
 
-      // shuffle the shuffled playlist
-      for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
-      }
+        // shuffle the shuffled playlist
+        for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
+        }
 
-      console.log(shuffledPlaylist)
+        console.log(shuffledPlaylist)
 
-      // add the rest of the playlist to the new playlist
-      for (let i = 0; i < shuffledPlaylist.length; i++) {
-        newPlaylist.push(shuffledPlaylist[i]);
-      }
+        // add the rest of the playlist to the new playlist
+        for (let i = 0; i < shuffledPlaylist.length; i++) {
+          newPlaylist.push(shuffledPlaylist[i]);
+        }
 
-      // set the new playlist
-      this.currentPlaylist = newPlaylist;
+        // set the new playlist
+        this.currentPlaylist = newPlaylist;
 
-      console.log(this.currentPlaylist)
+        console.log(this.currentPlaylist)
+        } else {
+          console.log('No playlist selected')
+          return
+        }
 
     },
 
     previousSong() {
       // get the current song index based on the selected song id
-      const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
+      let previousButton = document.querySelector('.player__button--back');
+      if(this.currentPlaylist != null) {
+        const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
 
-      // get the previous song index
-      const previousSongIndex = currentSongIndex - 1;
+        // get the previous song index
+        const previousSongIndex = currentSongIndex - 1;
 
-      const previousSong = this.currentPlaylist[previousSongIndex];
+        const previousSong = this.currentPlaylist[previousSongIndex];
 
-      console.log(previousSongIndex)
+        console.log(previousSongIndex)
 
-      // if the current song is the first song in the playlist, return
-      if (previousSongIndex === -1) {
-        // gray out the previous button
-        const previousButton = document.querySelector('.player__button--back');
-        previousButton.style.opacity = 0.5;
-        return
-      }
+        // if the current song is the first song in the playlist, return
+        if (previousSongIndex === -1) {
+          // gray out the previous button
+          previousButton.style.opacity = 0.5;
+          return
+        }
 
-      this.currentSong = previousSong;
-      this.currenTimeRaw = 0;
-      this.currentTime = '0:00';
+        this.currentSong = previousSong;
+        this.currenTimeRaw = 0;
+        this.currentTime = '0:00';
 
-      this.songPlaying = true;
-      this.setAudio()
+        this.songPlaying = true;
+        this.setAudio()
+        } else {
+          previousButton.style.opacity = 0.5;
+          return
+        }
     },
 
     nextSong() {
-      // get the current song index based on the selected song id
-      const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
+      let nextButton = document.querySelector('.player__button--skip');
+      if(this.currentPlaylist != null) {
+        // get the current song index based on the selected song id
+        const currentSongIndex = this.currentPlaylist.findIndex(song => song.id === this.currentSong.id);
 
-      const previousButton = document.querySelector('.player__button--back');
-      previousButton.style.opacity = 1;
+        const previousButton = document.querySelector('.player__button--back');
+        previousButton.style.opacity = 1;
 
-      console.log(currentSongIndex)
+        console.log(currentSongIndex)
 
-      // get the next song index
-      const nextSongIndex = currentSongIndex + 1;
+        // get the next song index
+        const nextSongIndex = currentSongIndex + 1;
 
-      console.log(nextSongIndex)
+        console.log(nextSongIndex)
 
-      // get the next song
-      const nextSong = this.currentPlaylist[nextSongIndex];
+        // get the next song
+        const nextSong = this.currentPlaylist[nextSongIndex];
 
-      if (nextSongIndex > this.currentPlaylist.length - 1) {
+        if (nextSongIndex > this.currentPlaylist.length - 1) {
+          // gray out the next button
+          nextButton.style.opacity = 0.5;
+          return
+        }
+
+        // set the new current song
+        this.currentSong = nextSong;
+        // set the new current time
+        this.currentTimeRaw = 0;
+        // set the new current time
+        this.currentTime = `0:00`;
+
+        this.songPlaying = true;
+
+        this.setAudio()
+      } else {
+        nextButton.style.opacity = 0.5;
         return
       }
-
-      // set the new current song
-      this.currentSong = nextSong;
-      // set the new current time
-      this.currentTimeRaw = 0;
-      // set the new current time
-      this.currentTime = `0:00`;
-
-      this.songPlaying = true;
-
-      this.setAudio()
     },
 
     setAudio() {

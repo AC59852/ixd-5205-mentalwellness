@@ -5,24 +5,35 @@
       <h2>Daily Check-In</h2>
       <div class="checkin__card">
         <div class="card__text">
-          <h3>Hello, {{user}}</h3>
+          <h3>Hello {{user}},</h3>
           <span>How are you feeling today?</span>
         </div>
         <div class="card__btns">
-          <button class="card__btn card__btn--skip">Skip</button>
+          <button class="card__btn card__btn--skip" @click="hideCheckin()">Skip</button>
           <button class="card__btn card__btn--checkin">Check-in</button>
         </div>
       </div>
     </div>
     <!-- end of checkin -->
-    <section v-for="genre in genreSongs" :key="genre.title" class="dashboard__list dashboard__list--music">
+    <section class="dashboard__audio">
+      <h2>Recommended Music</h2>
+      <div class="card__list">
+        <AudioCard class="dashboard__card" v-for="song in recommendedSongs" :key="song" :card="song" @showAudioPlayer="loadPlayer(song)"/>
+      </div>
+    </section>
+    <section v-for="genre in genreSongs" :key="genre.title" class="dashboard__audio">
       <h2>{{genre.title}}</h2>
-      <AudioCard @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
+      <div class="card__list">
+        <AudioCard class="dashboard__card" @showAudioPlayer="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
+      </div>
     </section>
-    <section class="dashboard__list dashboard__list--music">
-      <AudioCard @click="loadPlayer(card), setPlaylist()" v-for="card in MeditationCards" :key="card.id" :card="card" />
+    <section class="dashboard__audio">
+      <h2>Meditation</h2>
+      <div class="card__list">
+        <AudioCard @showAudioPlayer="loadPlayer(card), setPlaylist(card)" v-for="card in MeditationCards" :key="card.id" :card="card" />
+      </div>
     </section>
-    <PlayerComponent v-if="selectedSong && selectedPlaylist" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
+    <PlayerComponent @close="closePlayer()" v-if="selectedSong" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
   </section>
 </template>
 
@@ -34,7 +45,6 @@ export default {
     return {
       jsonData: "https://api.npoint.io/48294827906cea5bfb5e",
       user: "Austin",
-      MusicCards: null,
       MeditationCards: null,
       selectedPlaylist: null,
       selectedSong: null,
@@ -42,6 +52,7 @@ export default {
       genres: [],
       uniqueGenres: [],
       genreSongs: [],
+      recommendedSongs: [],
     }
   },
 
@@ -49,6 +60,7 @@ export default {
     fetch(this.jsonData)
       .then(response => response.json())
       .then(json => {
+        this.MeditationCards = json.Meditation;
         json.Music.forEach(song => {
           this.songs.push(song);
           if (song.genre) {
@@ -57,6 +69,16 @@ export default {
             this.genres.push("Other");
           }
         });
+
+        // get 10 random songs in the songs array and put them in the recommendedSongs array with no duplicates
+        for (let i = 0; i < 6; i++) {
+          let randomSong = this.songs[Math.floor(Math.random() * this.songs.length)];
+          if (this.recommendedSongs.includes(randomSong)) {
+            i--;
+          } else {
+            this.recommendedSongs.push(randomSong);
+          }
+        }
 
         // create an array with each genre and put the WHOLE song into it
         this.uniqueGenres = this.genres.filter((item, index) => this.genres.indexOf(item) === index);
@@ -79,32 +101,43 @@ export default {
             
             if (genre.title === song.genre) {
               genre.songs.push(song);
+
+              // cap the number of songs in each genre to 5
+              if (genre.songs.length > 5) {
+                genre.songs.pop();
+              }
             }
           });
         });
-
-        console.log(this.genreSongs)
       })
       .catch(error => console.log(error));
   },
 
   methods: {
+
+    hideCheckin() {
+      document.querySelector(".checkin").style.display = "none";
+    },
+
     loadPlayer(card) {
       this.selectedSong = card;
     },
 
     setPlaylist(card) {
-      console.log(card.genre);
       // capitalize card.type
       let genre = card.genre.charAt(0).toUpperCase() + card.genre.slice(1);
 
-      // get all songs of the genre
-      let songs = this.songs.filter(song => song.genre === genre);
+      // look in genreSongs for the genre and set the playlist to that genre's songs
+      this.genreSongs.forEach(songs => {
+        if (genre === songs.title) {
+          this.selectedPlaylist = songs.songs;
+        }
+      });
+    },
 
-      console.log(songs)
-
-      // set the playlist
-      this.selectedPlaylist = songs;
+    closePlayer() {
+      this.selectedSong = null;
+      this.selectedPlaylist = null;
     }
 
   },
@@ -112,7 +145,7 @@ export default {
   components: {
     AudioCard: AudioCard,
     PlayerComponent
-}
+  }
 }
 </script>
 

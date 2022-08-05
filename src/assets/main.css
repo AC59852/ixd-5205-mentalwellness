@@ -1,4 +1,147 @@
 html {
   max-width: 500px;
   margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  background-color: #FAFAFA;
+}
+
+.dashboard {
+  width: 93%;
+  margin: 0 auto;
+}
+
+.checkin h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3A3A3A;
+}
+
+.checkin__card {
+  width: 100%;
+  background: linear-gradient(180deg, #5B3193 0%, rgba(0, 0, 0, 0.88) 100%);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 190px;
+  margin: 8px 0;
+}
+
+.card__text, .card__btns {
+  margin: 0 15px;
+}
+
+.card__text {
+  margin-top: 19px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.card__text h3 {
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.card__text span {
+  font-size: 18px;
+}
+
+.card__btns {
+  margin-top: auto;
+  margin-bottom: 27px;
+  display: flex;
+  gap: 16px;
+}
+
+.card__btn {
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 250000px;
+  padding: 8px 8%;
+  cursor: pointer;
+}
+
+.card__btn--skip {
+  background: transparent;
+  border: 1px solid white;
+}
+
+.card__btn--checkin {
+  background: #964FC1;
+  border: none;
+}
+
+.dashboard__audio { margin: 15px 0; }
+
+.dashboard__audio h2 {
+  font-size: 18px;
+  color: #3A3A3A;
+  font-weight: 500;
+  margin: 7.5px 0;
+}
+
+.audio-card {
+  width: 60%;
+  max-width: 184px;
+}
+
+.audio-card__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: relative;
+}
+
+.audio-card__img::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.audio-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+}
+
+.audio-card__btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 6px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.audio-card__text h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 8px 0 6px;
+}
+
+.audio-card__text span {
+  font-size: 15px;
+  color: #9A9A9A;
+  font-weight: 600;
+}
+
+.card__list {
+  display: flex;
+  gap: 11px;
+  overflow-x: auto;
+  padding: 0 0 14px;
+}
+
+.dashboard__card {
+  flex: 1 0 auto;
+  vertical-align: bottom;
 }
