@@ -19,7 +19,7 @@ export default {
         id: 1, 
         question: 'What brings you here today?',
         responses: [
-          {id: 1, response: 'Reduce anxiety'},
+          {id: 1, response: 'Mood Improvement'},
           {id: 2, response: 'Relieve Stress'},
         ]},
 
@@ -48,7 +48,6 @@ export default {
 
     logChoice(event) {
       console.log(event.target.value);
-      //localStorage.setItem('choice', event.target.value);
     }
   }
 }

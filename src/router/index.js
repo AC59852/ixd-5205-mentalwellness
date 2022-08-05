@@ -14,6 +14,16 @@ const router = createRouter({
       path: '/questions',
       name: 'questions',
       component: questions
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('../views/DashboardView.vue'),
+    },
+    {
+      path: '/music',
+      name: 'Music',
+      component: () => import('../views/MusicView.vue'),
     }
   ]
 })
