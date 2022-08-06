@@ -1,8 +1,20 @@
 <template>
   <section class="player">
-      <span @click="close()">X</span>
+      <span @click="close()" class="player__close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.47021 10.64L12.0002 14.16L15.5302 10.64" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="player__more">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="14" r="2" fill="#FEFEFE"/>
+          <circle cx="20" cy="20" r="2" fill="#FEFEFE"/>
+          <circle cx="20" cy="26" r="2" fill="#FEFEFE"/>
+        </svg>
+      </span>
       <div class="player__info">
-        <img :src="currentSong.coverPhoto" :alt="`Cover Photo for the Song: ${currentSong.title}, By ${selectedSong.artist}`">
+        <div class="player__image"><img :src="currentSong.coverPhoto" :alt="`Cover Photo for the Song: ${currentSong.title}, By ${selectedSong.artist}`"></div>
         <div class="info__text">
           <h3>{{currentSong.title}}</h3>
           <span>{{currentSong.artist}}</span>
@@ -16,7 +28,7 @@
             <span>{{songLength}}</span>
           </div>
           <div class="player__progress">
-            <progress :value="currentTimeRaw" :max="songLengthRaw" @click="getClickedPosition($event)"></progress>
+            <progress :value="currentTimeRaw" :max="songLengthRaw" @click="getClickedPosition($event)">Test</progress>
           </div>
         </div>
         <audio @timeupdate="updateCurrent()" :src="currentSong.songLink" type="audio/mpeg"></audio>
@@ -63,6 +75,10 @@ export default {
     this.setAudio()
 
     console.log(this.selectedPlaylist)
+    let audio = document.querySelector("audio")
+    audio.onended = function() {
+        this.nextSong();
+    }.bind(this)
   },
 
   methods: {
@@ -81,13 +97,18 @@ export default {
       }
     },
 
+    formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time - minutes * 60);
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    },
+
     updateCurrent() {
       const audio = document.querySelector('audio');
       this.currentTimeRaw = audio.currentTime;
-      // format audio.currentTime to minutes:seconds
-      const minutes = Math.floor(audio.currentTime / 60);
-      const seconds = Math.floor(audio.currentTime % 60);
-      this.currentTime = `${minutes}:${seconds}`;
+
+      // format audio.currentTime to minutes:00
+      this.currentTime = this.formatTime(audio.currentTime);
 
       // update the progress bar
       const progress = document.querySelector('progress');
@@ -97,6 +118,7 @@ export default {
     getClickedPosition(event) {
       const audio = document.querySelector('audio');
       const progress = document.querySelector('progress');
+      
       const clickedPosition = event.offsetX / progress.offsetWidth;
       audio.currentTime = clickedPosition * audio.duration;
     },
@@ -213,10 +235,9 @@ export default {
       const audio = document.querySelector('audio');
       audio.addEventListener('loadedmetadata', () => {
         this.songLengthRaw = audio.duration;
-        // format audio.duration to minutes:seconds
-        const minutes = Math.floor(audio.duration / 60);
-        const seconds = Math.floor(audio.duration % 60);
-        this.songLength = `${minutes}:${seconds}`;
+
+        // format audio.duration to minutes:00
+        this.songLength = this.formatTime(audio.duration);
 
         this.songPlaying = true;
         audio.play()

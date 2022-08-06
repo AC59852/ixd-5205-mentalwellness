@@ -4,7 +4,7 @@
       <h2>{{genre.title}}</h2>
       <AudioCard @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
     </div>
-    <PlayerComponent v-if="selectedSong && selectedPlaylist" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
+    <PlayerComponent @close="closePlayer()" v-if="selectedSong && selectedPlaylist" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
   </section>
 </template>
 
@@ -72,6 +72,11 @@ export default {
   methods: {
     loadPlayer(card) {
       this.selectedSong = card;
+    },
+
+    closePlayer() {
+      this.selectedSong = null;
+      this.selectedPlaylist = null;
     },
 
     setPlaylist(card) {

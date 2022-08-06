@@ -33,7 +33,9 @@
         <AudioCard @showAudioPlayer="loadPlayer(card), setPlaylist(card)" v-for="card in MeditationCards" :key="card.id" :card="card" />
       </div>
     </section>
-    <PlayerComponent @close="closePlayer()" v-if="selectedSong" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
+    <transition name="slide">
+      <PlayerComponent @close="closePlayer()" v-if="selectedSong" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
+    </transition>
   </section>
 </template>
 
