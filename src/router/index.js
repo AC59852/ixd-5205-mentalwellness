@@ -7,8 +7,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'Dashboard',
+      component: () => import('../views/DashboardView.vue'),
     },
     {
       path: '/questions',
@@ -16,14 +16,19 @@ const router = createRouter({
       component: questions
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: () => import('../views/DashboardView.vue'),
-    },
-    {
       path: '/music',
       name: 'Music',
       component: () => import('../views/MusicView.vue'),
+    },
+    {
+      path: '/care',
+      name: 'Care',
+      component: () => import('../views/CareView.vue'),
+    },
+    {
+      path: '/meditation',
+      name: 'Meditation',
+      component: () => import('../views/MeditationView.vue'),
     }
   ]
 })

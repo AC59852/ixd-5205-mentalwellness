@@ -2,13 +2,7 @@
   <section class="music">
     <div class="dashboard__audio" v-for="genre in genreSongs" :key="genre.title">
       <h2>{{genre.title}}</h2>
-      <div class="card__list">
-        <AudioCard class="dashboard__card" @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
-      </div>
-    </div>
-    <div class="dashboard__audio" v-for="genre in genreSongs" :key="genre.title">
-      <h2>{{genre.title}}</h2>
-      <div class="card__list">
+      <div class="card__list card__list--meditation">
         <AudioCard class="dashboard__card" @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
       </div>
     </div>
@@ -42,18 +36,13 @@ export default {
       .then(json => {
         json.Music.forEach(song => {
           this.songs.push(song);
-          if (song.genre) {
+          if (song.genre === "Meditation") {
             this.genres.push(song.genre);
-          } else {
-            this.genres.push("Other");
           }
         });
 
         // create an array with each genre and put the WHOLE song into it
         this.uniqueGenres = this.genres.filter((item, index) => this.genres.indexOf(item) === index);
-
-        // remove Meditation from the uniqueGenres array
-        this.uniqueGenres.splice(this.uniqueGenres.indexOf("Meditation"), 1);
 
         // seperate the songs into genres and set title as the genre
         this.uniqueGenres.forEach(genre => {
