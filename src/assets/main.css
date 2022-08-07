@@ -11,7 +11,7 @@ html {
   left: 0;
   width: 100%;
   background: white;
-  height: 80px;
+  height: 65px;
   z-index: 1;
 }
 
@@ -199,8 +199,12 @@ filter: invert(43%) sepia(95%) saturate(1852%) hue-rotate(244deg) brightness(78%
 
 .player__info {
   width: 80%;
-  max-width: 320px;
-  margin: 0 auto 60px;
+  max-width: 280px;
+  margin: 0 auto 20px;
+}
+
+@media screen and (min-height: 700px) {
+  .player__info {margin: -50px auto 40px;}
 }
 
 .player__image {
@@ -233,7 +237,7 @@ filter: invert(43%) sepia(95%) saturate(1852%) hue-rotate(244deg) brightness(78%
 }
 
 .player__close { left: 35px; }
-.player__more { right: 35px; }
+.player__more { top: 30px; right: 35px; }
 
 .info__text {
   text-align: center;
@@ -327,4 +331,48 @@ progress[value]::-moz-progress-bar {
   100% {
     transform: translateY(0);
   }
+}
+
+.care {
+  width: 93%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.care__link {
+  position: relative;
+  box-sizing: border-box;
+  padding: 16px;
+  text-decoration: none;
+  border-radius: 15px;
+  display: block;
+}
+
+.care__link::after {
+  content: "";
+  display: block;
+  padding-bottom: 20%;
+}
+
+.care__link h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
+
+.care__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.card__list--meditation {
+  flex-wrap: wrap;
 }

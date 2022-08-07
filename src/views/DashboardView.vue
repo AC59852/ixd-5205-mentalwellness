@@ -27,12 +27,6 @@
         <AudioCard class="dashboard__card" @showAudioPlayer="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
       </div>
     </section>
-    <section class="dashboard__audio">
-      <h2>Meditation</h2>
-      <div class="card__list">
-        <AudioCard @showAudioPlayer="loadPlayer(card), setPlaylist(card)" v-for="card in MeditationCards" :key="card.id" :card="card" />
-      </div>
-    </section>
     <transition name="slide">
       <PlayerComponent @close="closePlayer()" v-if="selectedSong" :selectedSong="selectedSong" :selectedPlaylist="selectedPlaylist" />
     </transition>
@@ -84,7 +78,9 @@ export default {
 
         // create an array with each genre and put the WHOLE song into it
         this.uniqueGenres = this.genres.filter((item, index) => this.genres.indexOf(item) === index);
-
+        // limite the uniqueGenres to 3
+        this.uniqueGenres = this.uniqueGenres.slice(0, 3);
+        
         // seperate the songs into genres and set title as the genre
         this.uniqueGenres.forEach(genre => {
           this.genreSongs.push({
