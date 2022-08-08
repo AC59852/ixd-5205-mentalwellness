@@ -3,7 +3,7 @@
   <h2>{{activeQuestion}}</h2>
   <ul>
     <li v-for="response in questions[0].responses" :key="response.id">
-      <input type="radio" name="question" :value="response.response" @click="logChoice($event)"/>
+      <input type="checkbox" name="question" :value="response.response" @click="logChoice($event)"/>
       <label for="question">{{response.response}}</label>
     </li>
   </ul>
@@ -65,6 +65,19 @@ export default {
   methods: {
     loadNextQuestion() {
       this.questions.shift();
+
+      // clear out the checkboxes
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+      if (this.questions.length > 0) {
+        this.activeQuestion = this.questions[0].question;
+      } 
+      // else if the user has answered all questions, redirect to dashboard
+      else {
+        this.$router.push('/dashboard');
+      }
     },
 
     logChoice(event) {

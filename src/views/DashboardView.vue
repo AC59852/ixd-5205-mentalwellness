@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       jsonData: "https://api.npoint.io/48294827906cea5bfb5e",
-      user: "Austin",
+      user: "",
       MeditationCards: null,
       selectedPlaylist: null,
       selectedSong: null,
@@ -109,6 +109,15 @@ export default {
         });
       })
       .catch(error => console.log(error));
+  },
+
+  mounted() {
+    // if localstorage has object User, set the user to the object's firstname
+    if (localStorage.getItem("User")) {
+      this.user = JSON.parse(localStorage.getItem("User")).firstname;
+    } else {
+      this.user = "User";
+    }
   },
 
   methods: {
