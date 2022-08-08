@@ -20,7 +20,7 @@
           <label for="password">Password</label>
           <input type="password" required id="password" placeholder="Enter your Password" v-model="password">
         </div>
-        <router-link to="/dashboard" class="signup__create" @click="processLogin()">Create Account</router-link>
+        <router-link to="/questions" class="signup__create" @click="processLogin()">Create Account</router-link>
       </form>
     </div>
   </section>

@@ -1,13 +1,14 @@
 <template>
-  <h1>Questions</h1>
-  <h2>{{activeQuestion}}</h2>
-  <ul>
-    <li v-for="response in questions[0].responses" :key="response.id">
-      <input type="checkbox" name="question" :value="response.response" @click="logChoice($event)"/>
-      <label for="question">{{response.response}}</label>
-    </li>
-  </ul>
-  <button @click="loadNextQuestion()"></button>
+  <section class="questions">
+    <h2>{{activeQuestion}}</h2>
+    <ul class="questions__list">
+      <li class="questions__item" v-for="response in questions[0].responses" :key="response.id">
+        <input type="checkbox" name="question" :value="response.response" @click="logChoice($event)"/>
+        <label for="question">{{response.response}}</label>
+      </li>
+    </ul>
+    <button class="questions__button" @click="loadNextQuestion()">Next</button>
+  </section>
 </template>
 
 <script>
@@ -19,11 +20,11 @@ export default {
           id: 1, 
           question: 'What brings you here today?',
           responses: [
-            {id: 1, response: 'Mood Improvement'},
-            {id: 2, response: 'Stress Relief'},
+            {id: 1, response: 'Reduce Anxiety'},
+            {id: 2, response: 'Relieve Stress'},
             {id: 3, response: 'Improve Motivation'},
-            {id: 4, response: 'Improve focus'},
-            {id: 5, response: 'Reduce Anxiety'},
+            {id: 4, response: 'Better Mood'},
+            {id: 5, response: 'Increase Focus'},
           ]
         },
 
@@ -44,12 +45,12 @@ export default {
           id: 3,
           question: 'What would help you relax?',
           responses: [
-            {id: 1, response: 'Music'},
-            {id: 2, response: 'Relaxing sounds'},
-            {id: 3, response: 'Reading articles on mental wellness and mental health'},
-            {id: 4, response: 'Talking with others like you'},
-            {id: 5, response: 'Talking to a mental health coach'},
-            {id: 6, response: 'Talking to a mental health professional'},
+            {id: 1, response: 'Video Games'},
+            {id: 2, response: 'Meditation'},
+            {id: 3, response: 'Music'},
+            {id: 4, response: 'Walks/Exercise'},
+            {id: 5, response: 'Reading'},
+            {id: 6, response: 'Talking with other people'},
           ]
         },
       ],
@@ -60,6 +61,14 @@ export default {
 
   mounted() {
     this.activeQuestion = this.questions[0].question;
+
+    document.querySelector(".navbar").classList.add("hide")
+  },
+
+  beforeRouteLeave(to, from, next) {
+    document.querySelector(".navbar").classList.remove("hide")
+    document.querySelector(".header").classList.remove("hide")
+    next()
   },
 
   methods: {
