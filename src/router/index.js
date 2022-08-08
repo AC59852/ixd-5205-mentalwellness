@@ -37,7 +37,7 @@ const router = createRouter({
     {
       path: '/checkin',
       name: 'Check-in',
-      component: () => import('../views/Checkin.vue'),
+      component: () => import('../views/CheckinView.vue'),
     },
     // catch all route
     {
