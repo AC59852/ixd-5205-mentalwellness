@@ -44,6 +44,11 @@ const router = createRouter({
       name: 'Check-in',
       component: () => import('../views/CheckinView.vue'),
     },
+    {
+      path: '/articles',
+      name: 'Resource Center',
+      component: () => import('../views/ArticlesView.vue'),
+    },
     // catch all route
     {
       path: '/:pathMatch(.*)*',
