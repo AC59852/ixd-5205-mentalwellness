@@ -1,7 +1,6 @@
 <template>
   <section class="music">
     <div class="dashboard__audio" v-for="genre in genreSongs" :key="genre.title">
-      <h2>{{genre.title}}</h2>
       <div class="card__list card__list--meditation">
         <AudioCard class="dashboard__card" @click="loadPlayer(card), setPlaylist(card)" v-for="card in genre.songs" :key="card.id" :card="card"/>
       </div>

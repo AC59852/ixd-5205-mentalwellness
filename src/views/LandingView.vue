@@ -36,6 +36,7 @@ export default {
     dots[0].classList.add('dot--active');
 
     document.querySelector(".navbar").classList.add("hide")
+    document.querySelector(".header").classList.add("hide")
   },
 
   methods: {
@@ -55,6 +56,13 @@ export default {
       // set the selected content to the content at that index
       this.selectedContent = this.content[index - 1];
     }
+  },
+
+  // router before change remove hide from navbar and header
+  beforeRouteLeave(to, from, next) {
+    document.querySelector(".navbar").classList.remove("hide")
+    document.querySelector(".header").classList.remove("hide")
+    next()
   },
 
   components: {

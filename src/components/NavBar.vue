@@ -2,7 +2,7 @@
   <nav class="navbar">
     <ul class="navbar__list">
       <li class="navbar__item">
-        <router-link to="/">
+        <router-link to="/dashboard">
           <img src="@/assets/home.svg" alt="Icon to navigate to the Home Page">
           Home
         </router-link>
