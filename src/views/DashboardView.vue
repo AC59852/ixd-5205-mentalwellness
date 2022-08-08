@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       jsonData: "https://api.npoint.io/48294827906cea5bfb5e",
-      user: "",
+      user: "Austin",
       MeditationCards: null,
       selectedPlaylist: null,
       selectedSong: null,
@@ -113,10 +113,18 @@ export default {
 
   mounted() {
     // if localstorage has object User, set the user to the object's firstname
-    if (localStorage.getItem("User")) {
-      this.user = JSON.parse(localStorage.getItem("User")).firstname;
-    } else {
-      this.user = "User";
+    let storedUser = localStorage.getItem("User");
+
+    // parse the storedUser into an object
+    if (storedUser) {
+      storedUser = JSON.parse(storedUser);
+      
+      // if storeduser first name is empty, set the user to "Austin"
+      if (storedUser.firstname === "") {
+        this.user = "User";
+      } else {
+        this.user = storedUser.firstname;
+      }
     }
   },
 
