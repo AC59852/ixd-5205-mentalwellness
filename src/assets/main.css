@@ -63,12 +63,11 @@ html {
   font-size: 12px;
   text-decoration: none;
   font-weight: 600;
+  transition: all 0.3s ease-in-out;
 }
 
 .router-link-active {
-  
-
-filter: invert(43%) sepia(95%) saturate(1852%) hue-rotate(244deg) brightness(78%) contrast(92%);
+  filter: invert(43%) sepia(95%) saturate(1852%) hue-rotate(244deg) brightness(78%) contrast(92%);
   color: #964FC1 !important;
 }
 
@@ -338,6 +337,12 @@ progress[value]::-moz-progress-bar {
   background: transparent;
   font-size: 28px;
   color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.player__button:active {
+  transform: scale(0.70);
+  color: #9A9A9A;
 }
 
 .player__button--shuffle { font-size: 22px; }

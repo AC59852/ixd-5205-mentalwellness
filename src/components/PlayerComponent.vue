@@ -79,10 +79,17 @@ export default {
     audio.onended = function() {
         this.nextSong();
     }.bind(this)
+
+    // if screen height is less than 740px, then hide navbar
+    if (window.innerHeight < 740) {
+      document.querySelector(".navbar").classList.add("hide")
+    }
   },
 
   methods: {
     close() {
+      document.querySelector(".navbar").classList.remove("hide")
+      
       this.$emit('close')
     },
 
@@ -149,6 +156,10 @@ export default {
 
         // set the new playlist
         this.currentPlaylist = newPlaylist;
+        
+        // un-gray the skip button
+        const skipButton = document.querySelector('.player__button--skip');
+        skipButton.style.opacity = 1;
 
         console.log(this.currentPlaylist)
         } else {
