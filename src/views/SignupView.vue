@@ -6,21 +6,21 @@
       <form>
         <div class="signup__wrapper">
           <label for="email">Email</label>
-          <input type="text" id="email" v-model="email">
+          <input type="text" required id="email" placeholder="Enter your Email" v-model="email">
         </div>
         <div class="signup__wrapper">
           <label for="firstname">First Name</label>
-          <input type="text" id="firstname" v-model="firstname">
+          <input type="text" required id="firstname" placeholder="Enter your First Name" v-model="firstname">
         </div>
         <div class="signup__wrapper">
           <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" v-model="lastname">
+          <input type="text" required id="lastname" placeholder="Enter your Last Name" v-model="lastname">
         </div>
         <div class="signup__wrapper">
           <label for="password">Password</label>
-          <input type="text" id="password" v-model="password">
+          <input type="password" required id="password" placeholder="Enter your Password" v-model="password">
         </div>
-        <router-link to="/dashboard" class="signup__create" @click="processLogin()">Create Account</router-link>
+        <router-link to="/questions" class="signup__create" @click="processLogin()">Create Account</router-link>
       </form>
     </div>
   </section>
@@ -35,6 +35,23 @@ export default {
       lastname: '',
       password: ''
     }
+  },
+
+  mounted() {
+    this.email = '';
+    this.firstname = '';
+    this.lastname = '';
+    this.password = '';
+
+    document.querySelector(".navbar").classList.add("hide")
+    document.querySelector(".header").classList.add("hide")
+  },
+
+  // router before change remove hide from navbar and header
+  beforeRouteLeave(to, from, next) {
+    document.querySelector(".navbar").classList.remove("hide")
+    document.querySelector(".header").classList.remove("hide")
+    next()
   },
 
   methods: {
