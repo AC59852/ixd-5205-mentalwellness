@@ -8,7 +8,7 @@
       </div>
       <div class="landing__login">
         <router-link to="/dashboard" class="landing__button landing__button--signin">Sign-In</router-link>
-        <router-link to="/signup" class="landing__button landing__button--signup">Sign-Up</router-link>
+        <router-link to="/signup" class="landing__button landing__button--signup">Sign-Up Now</router-link>
       </div>
     </div>
   </section>
