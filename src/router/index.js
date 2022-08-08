@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import questions from '../views/questions.vue'
 
 const router = createRouter({
@@ -7,6 +6,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'landing',
+      component: () => import('../views/LandingView.vue')
+    },
+    {
+      path: '/dashboard',
       name: 'Dashboard',
       component: () => import('../views/DashboardView.vue'),
     },
