@@ -33,6 +33,11 @@ const router = createRouter({
       path: '/meditation',
       name: 'Meditation',
       component: () => import('../views/MeditationView.vue'),
+    },
+    // catch all route
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/dashboard'
     }
   ]
 })
