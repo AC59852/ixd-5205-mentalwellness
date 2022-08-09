@@ -421,6 +421,61 @@ progress[value]::-moz-progress-bar {
   justify-content: center;
 }
 
+.articles {
+  width: 93%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.articles__link { /* White, purple border for unvisited link. */
+  position: relative;
+  box-sizing: border-box;
+  padding: 16px;
+  text-decoration: none;
+  border-radius: 15px;
+  background: white;
+  color: black;
+  border: 1.5px solid #964FC1;
+  display: block;
+  animation: slide-up .7s;
+  animation-timing-function: ease;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0.2;
+    top: 100px;
+  }
+  to {
+   opacity: 1; 
+   top: 0px;
+  }
+}
+
+.articles__link:hover { /* Strong purple, no border for hover/selected link. */
+  background: #964FC1;
+  color: white;
+}
+
+.articles__link:visited { /* Faded purple, no border for visited article. */
+  background: #EEE1F5;
+  color: black;
+}
+
+.articles__link::after {
+  content: "";
+  display: block;
+  padding-bottom: 20%;
+}
+
+.articles__link h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
+
 .landing__wave {
   position: absolute;
   top: 0;
