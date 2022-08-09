@@ -8,9 +8,9 @@
       <img src="@/assets/music_bck.png" class="care__image">
       <h2>Music</h2>
     </router-link>
-    <router-link to="/breathing" class="care__link">
+    <router-link to="/articles" class="care__link">
       <img src="@/assets/guided_bck.png" class="care__image">
-      <h2>Guided Breathing</h2>
+      <h2>Resource Center</h2>
     </router-link>
     <router-link to="/" class="care__link">
       <img src="@/assets/help_bck.png" class="care__image">
